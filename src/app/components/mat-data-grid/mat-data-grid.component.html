@@ -1,0 +1,78 @@
+<!-- grid header -->
+<div class="grid-header mat-elevation-z8">
+  <mat-form-field>
+    <mat-select placeholder="Show" [(ngModel)]='pageSize' (selectionChange)='handleRowSelection($event)'>
+      <mat-option *ngFor="let selection of rowSelection" [value]="selection.value">
+        {{selection.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field id='search-header'>
+    <input matInput (keydown.enter)="handleSearch($event)" placeholder="Search...">
+  </mat-form-field>
+</div>
+<!-- grid data -->
+<div class="grid">
+  <div class="grid-data-container ">
+  <mat-table 
+            id='data-grid' 
+            #table 
+            [dataSource]="dataSource" 
+            (scroll)="handleTableScroll($event)" 
+            class="mat-elevation-z8"
+            matSort 
+            (matSortChange)="handleSort()"
+        >
+            <!-- grid column definition-->
+            <ng-container 
+                *ngFor="let col of colDefs; index as i" 
+                [matColumnDef]="col.field"             
+            >
+                <mat-header-cell 
+                    *matHeaderCellDef 
+                    [style.width]="col.width"
+                    mat-sort-header
+                    [disabled]='!col.isSortable'
+                    [ngClass]='!col.isSortable? "": "sort-header"'
+                > {{col.fieldHeader}} 
+                    <mat-icon 
+                        *ngIf='col.isSortable && sortOrder' 
+                        class='sort-header-remove' 
+                        (click)='handleSort($event,"remove")'
+                    >cancel_outline
+                    </mat-icon>
+                </mat-header-cell>
+                <mat-cell 
+                    *matCellDef="let row"
+                    [style.width]="col.width"
+                >
+                {{col.cell(row)}}
+                </mat-cell>
+            </ng-container>
+            <!-- grid header row -->
+            <mat-header-row 
+                *matHeaderRowDef="displayedColumns"
+                class="mat-elevation-z2"
+            >
+            </mat-header-row>
+            <!-- grid row-->
+            <mat-row 
+                *matRowDef="let row; columns: displayedColumns"
+                class="body"
+            >
+            </mat-row>
+        </mat-table>
+        <!-- progress bar for async op when scrolling -->
+        <mat-progress-bar 
+            *ngIf='loading;else loaderDiv' 
+            mode="indeterminate" 
+            class="mat-elevation-z10"
+        >
+        </mat-progress-bar>
+        <ng-template #loaderDiv>
+            <div id="loader-div"></div>
+        </ng-template>
+        <!-- No records found -->
+        <p *ngIf="hasNoRecords" class="no-records">No records found</p>
+  </div>
+</div>
