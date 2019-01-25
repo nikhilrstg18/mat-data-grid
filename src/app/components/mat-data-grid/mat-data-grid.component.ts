@@ -1,11 +1,13 @@
+import { GridParams } from './../../modals/grid-params';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDataGridColDef } from 'src/app/modals/mat-data-grid-col-def';
 import { MatDataGridService } from 'src/app/services/mat-data-grid.service';
+import{ map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-mat-data-grid',
+  selector: 'mat-data-grid',
   templateUrl: './mat-data-grid.component.html',
   styleUrls: ['./mat-data-grid.component.css']
 })
@@ -153,33 +155,43 @@ export class MatDataGridComponent implements OnInit {
   // ================================
 
   private getRows() {
-    var queryParams = null;
+    var queryParams:GridParams = new GridParams();
     //@ always paging in query params
     if (this.scrollingUp) {
-      queryParams = { 'page': this.historyPage.toString(), 'pageSize': this.pageSize.toString() };
+      queryParams.page = this.historyPage;
+      queryParams.pageSize = this.pageSize;      
       console.log(`asking for ${(this.historyPage - 1) * this.pageSize} to ${this.historyPage * this.pageSize - 1} records`);
     } else {
       if (this.futurePages.length > 0) {
-        queryParams = { 'page': this.futurePage.toString(), 'pageSize': this.pageSize.toString() };
+        queryParams.page = this.futurePage;
+        queryParams.pageSize = this.pageSize;
         console.log(`asking for ${(this.futurePage - 1) * this.pageSize} to ${this.futurePage * this.pageSize - 1} records`);
       } else {
-        queryParams = { 'page': this.page.toString(), 'pageSize': this.pageSize.toString() };
+        queryParams.page = this.page;
+        queryParams.pageSize = this.pageSize;
         console.log(`asking for ${(this.page - 1) * this.pageSize} to ${this.page * this.pageSize - 1} records`);
       }
     }
 
     //@ optional search inclusive with paging
-    if (this.searchText) {
-      Object.assign(queryParams, { 'query': this.searchText });
-    }
-    //@ optional sorting inclusive with paging
-    if (this.sortOrder) {
-      Object.assign(queryParams, { 'sort': this.sortOrder });
-    }
+    // if (this.searchText) {
+    //   Object.assign(queryParams, { 'query': this.searchText });
+    // }
+    // //@ optional sorting inclusive with paging
+    // if (this.sortOrder) {
+    //   Object.assign(queryParams, { 'sort': this.sortOrder });
+    // }
 
     //@ fetching grid data from server
     this.loading = true;
-    this._gridService.getRows(this.uri, queryParams).subscribe((rows: any[]) => {
+    this._gridService.getRows(queryParams).snapshotChanges()
+    .pipe(
+      map(actions => 
+        actions.map(a => ({ key: a.key, ...a.payload.val() }))
+      )
+    )
+    .subscribe((rows: any[]) => {
+      console.log(rows);
       //@ check for last set of record
       this.hasMoreRecords = !(rows.length < this.page);
       this.page = !this.hasMoreRecords ? this.page - 1 : this.page;
