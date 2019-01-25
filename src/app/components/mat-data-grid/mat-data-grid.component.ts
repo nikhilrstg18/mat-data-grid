@@ -13,25 +13,26 @@ import{ map } from 'rxjs/operators';
 })
 export class MatDataGridComponent implements OnInit {
 
-  private page: number;
-  private pageSize: number;
-  private rowData: any[];
-  private displayedColumns: any[];
-  private hasMoreRecords: boolean;
-  private sortToggle: boolean;
-  private searchText: string;
-  private sortOrder: string;
-  private dataSource: MatTableDataSource<any[]>;
-  private isScrolling: boolean;
-  private scrollingUp: boolean;
-  private isSantizedAbove: boolean;
-  private isSantizedBelow: boolean;
-  private historyPages: number[];
-  private futurePages: number[];
-  private historyPage: number;
-  private futurePage: number;
-  private loading: boolean;
-  private hasNoRecords : boolean;
+  page: number;
+  pageSize: number;
+  rowData: any[];
+  displayedColumns: any[];
+  hasMoreRecords: boolean;
+  sortToggle: boolean;
+  searchText: string;
+  sortOrder: string;
+  dataSource: MatTableDataSource<any[]>;
+  isScrolling: boolean;
+  scrollingUp: boolean;
+  isSantizedAbove: boolean;
+  isSantizedBelow: boolean;
+  historyPages: number[];
+  futurePages: number[];
+  historyPage: number;
+  futurePage: number;
+  loading: boolean;
+  hasNoRecords : boolean;
+  startAt: number;
 
   @Input('uri') uri: string;
   @Input('col-defs') colDefs: MatDataGridColDef[];
@@ -48,6 +49,7 @@ export class MatDataGridComponent implements OnInit {
     this.pageSize = 25;
     this.historyPage = 0;
     this.futurePage = 0;
+    this.startAt = 0;
     this.searchText = "";
     this.sortOrder = "";
     this.hasMoreRecords = true;
@@ -74,7 +76,7 @@ export class MatDataGridComponent implements OnInit {
   }
 
   //@ server side sort & clear sort
-  handleSort(evt: Event, value: string) {
+  handleSort(evt?: Event, value?: string) {
     if (value === 'remove') {
       this.dataSource.sort.direction = '';
       this.sortOrder = '';
@@ -159,16 +161,19 @@ export class MatDataGridComponent implements OnInit {
     //@ always paging in query params
     if (this.scrollingUp) {
       queryParams.page = this.historyPage;
-      queryParams.pageSize = this.pageSize;      
+      queryParams.pageSize = this.pageSize; 
+      queryParams.startAt = this.startAt>0? this.startAt :null;     
       console.log(`asking for ${(this.historyPage - 1) * this.pageSize} to ${this.historyPage * this.pageSize - 1} records`);
     } else {
       if (this.futurePages.length > 0) {
         queryParams.page = this.futurePage;
         queryParams.pageSize = this.pageSize;
+        queryParams.startAt = this.startAt>0? this.startAt :null;   
         console.log(`asking for ${(this.futurePage - 1) * this.pageSize} to ${this.futurePage * this.pageSize - 1} records`);
       } else {
         queryParams.page = this.page;
         queryParams.pageSize = this.pageSize;
+        queryParams.startAt = this.startAt>0? this.startAt :null;   
         console.log(`asking for ${(this.page - 1) * this.pageSize} to ${this.page * this.pageSize - 1} records`);
       }
     }
@@ -191,7 +196,6 @@ export class MatDataGridComponent implements OnInit {
       )
     )
     .subscribe((rows: any[]) => {
-      console.log(rows);
       //@ check for last set of record
       this.hasMoreRecords = !(rows.length < this.page);
       this.page = !this.hasMoreRecords ? this.page - 1 : this.page;
@@ -209,13 +213,17 @@ export class MatDataGridComponent implements OnInit {
             }
           }
           this.dataSource = new MatTableDataSource(this.rowData);
+          this.startAt = Number((this.rowData[this.rowData.length-1])['key']) + 1;
           this.dataSource.sort = this.sort;
           console.log(`total records in client memory: ${this.rowData.length}`);
+          console.log(`startAt: ${this.startAt}`);
         } else {
           this.rowData = rows
+          this.startAt = Number((this.rowData[this.rowData.length-1])['key']) + 1;
           this.dataSource = new MatTableDataSource(rows);
           this.dataSource.sort = this.sort;
           console.log(`total records in client memory: ${this.rowData.length}`);
+          console.log(`startAt: ${this.startAt}`);
         }
       }else if(this.rowData.length===0){
         this.hasNoRecords = true;
@@ -249,6 +257,7 @@ export class MatDataGridComponent implements OnInit {
 
   //@ reset the grid data
   private resetGridDataWithInitPage() {
+    this.startAt = 0;
     this.rowData = [];
     this.page = 1;
     this.futurePage = 0;

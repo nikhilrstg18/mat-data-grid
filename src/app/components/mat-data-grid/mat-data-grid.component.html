@@ -1,5 +1,5 @@
 <!-- grid header -->
-<div class="grid-header mat-elevation-z8">
+<div class="grid-header mat-elevation-z4">
   <mat-form-field>
     <mat-select placeholder="Show" [(ngModel)]='pageSize' (selectionChange)='handleRowSelection($event)'>
       <mat-option *ngFor="let selection of rowSelection" [value]="selection.value">
@@ -19,9 +19,9 @@
             #table 
             [dataSource]="dataSource" 
             (scroll)="handleTableScroll($event)" 
-            class="mat-elevation-z8"
+            class="mat-elevation-z4"
             matSort 
-            (matSortChange)="handleSort()"
+            (matSortChange)="handleSort($event)"
         >
             <!-- grid column definition-->
             <ng-container 

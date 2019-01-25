@@ -1,9 +1,65 @@
-<mat-data-grid
-  [uri]='uri'
+<div class="text-center">
+  <h1>Description</h1>
+</div>
+
+<div class="desc">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mat Data Grid
+        </mat-panel-title>
+        <mat-panel-description>
+          Service Side Infinite Scrolling
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4>Something cool is coming here...</h4>
+      <p> Understanding Service Side Infinite Scrolling </p>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mat Data Grid
+        </mat-panel-title>
+        <mat-panel-description>
+          Service-Side Filtering
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4>Something cool is coming here...</h4>
+      <p> Understanding Service-Side filtering </p>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mat Data Grid
+        </mat-panel-title>
+        <mat-panel-description>
+          Service-Side Sorting
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4>Something cool is coming here...</h4>
+      <p> Understanding Service-Side sorting </p>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mat Data Grid
+        </mat-panel-title>
+        <mat-panel-description>
+          Browser Memory Management
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4>Something cool is coming here...</h4>
+      <p> Understanding Browser Memory Management </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="text-center">
+  <h1>Mat-Data-Grid</h1>
+</div>
+<mat-data-grid 
+  [uri]='uri' 
   [col-defs]='colDefs' 
   [row-selection]='rowsSelections' 
   [max-block-in-cache]='maxBlockInCache'
-  >
-</mat-data-grid>
-
-{{gridDataArray|json}}
+>

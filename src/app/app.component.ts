@@ -10,16 +10,18 @@ import { MatDataGridColDef } from './modals/mat-data-grid-col-def';
 })
 export class AppComponent implements OnInit {
 
-  // private columnDefs: any[];
-  private baseUrl: string;
-  private resource: string;
-  private uri: string;
-  private rowsSelections: any[];
-  private colDefs: any[];
-  private maxBlockInCache: number;
-  private gridDataArray: GridData[];
+  baseUrl: string;
+  resource: string;
+  uri: string;
+  rowsSelections: any[];
+  colDefs: MatDataGridColDef[];
+  maxBlockInCache: number;
+  gridDataArray: GridData[];
 
   constructor() {
+    
+  }
+  ngOnInit(): void {
     this.baseUrl = `https://localhost:44378`;
     this.resource = `/api/values/GetValuePage`;
     this.uri = this.baseUrl + this.resource;
@@ -42,17 +44,15 @@ export class AppComponent implements OnInit {
       }
     ];
     this.colDefs = [
-      new MatDataGridColDef('studentId', 'Student Id', (element: any) => `${element.studentId != null ? element.studentId : ''}`, '12.25rem', false),
-      new MatDataGridColDef('studentName', 'Student Name', (element: any) => `${element.studentName != null ? element.studentName : ''}`, '12.375rem', false),
-      new MatDataGridColDef('studentAddress', 'Student Address', (element: any) => `${element.studentAddress != null ? element.studentAddress : ''}`, '12.375rem', true),
-      new MatDataGridColDef('studentDepartment', 'Department', (element: any) => `${element.studentDepartment != null ? element.studentDepartment : ''}`, '12.375rem', false),
-      new MatDataGridColDef('studentScore', 'Student Score', (element: any) => `${element.studentScore != null ? element.studentScore : ''}`, '12.375rem', false),
-      new MatDataGridColDef('isMerit', 'Merit', (element: any) => `${element.isMerit != null ? element.isMerit : ''}`, '12.375rem', false),
+      new MatDataGridColDef('studentId', 'Id', (element: any) => `${element.studentId != null ? element.studentId : ''}`, '16.67rem', false),
+      new MatDataGridColDef('studentName', 'Name', (element: any) => `${element.studentName != null ? element.studentName : ''}`, '16.67rem', false),
+      new MatDataGridColDef('studentAddress', 'Address', (element: any) => `${element.studentAddress != null ? element.studentAddress : ''}`, '16.67rem', false),
+      new MatDataGridColDef('studentDepartment', 'Department', (element: any) => `${element.studentDepartment != null ? element.studentDepartment : ''}`, '16.67rem', false),
+      new MatDataGridColDef('studentScore', 'Score', (element: any) => `${element.studentScore != null ? element.studentScore : ''}`, '16.67rem', true),
+      new MatDataGridColDef('isMerit', 'Merit', (element: any) => `${element.isMerit != null ? element.isMerit : ''}`, '16.67rem', false),
       
     ];
     this.maxBlockInCache = 5;
-  }
-  ngOnInit(): void {
 
   }
 

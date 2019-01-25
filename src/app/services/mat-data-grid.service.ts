@@ -35,6 +35,9 @@ export class MatDataGridService {
   getRows(gridParams: GridParams): AngularFireList<GridData>{
     var refPath= '/griddata';
     //return this.db.database.ref(refPath).orderByChild('studentId'). limitToFirst(gridParams.pageSize).startAt(gridParams.startAt).once("value").then((snapshot)=> snapshot);
-    return this.db.list(refPath,ref=> ref.orderByKey().limitToFirst(gridParams.pageSize));//.startAt(String(gridParams.startAt)));
+    if(gridParams.startAt){
+      return this.db.list(refPath,ref=> ref.orderByKey().limitToFirst(gridParams.pageSize).startAt(String(gridParams.startAt)));
+    }
+    return this.db.list(refPath,ref=> ref.orderByKey().limitToFirst(gridParams.pageSize));
   }
 }
