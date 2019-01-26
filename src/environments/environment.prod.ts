@@ -11,7 +11,7 @@ export const environment = {
   img:{
     infiniteScrolling: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/infinitescroll.PNG',
     sorting:{
-      s1: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/s1.png',
+      s1: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/s1.PNG',
       s2: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/s2.png',
       s3: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/s3.png',
       s4: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/s4.png',
