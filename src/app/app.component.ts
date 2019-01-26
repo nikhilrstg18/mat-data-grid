@@ -19,6 +19,13 @@ export class AppComponent implements OnInit {
   maxBlockInCache: number;
   gridDataArray: GridData[];
   imageLink1 :string;
+  s1:string;
+  s2:string;
+  s3:string;
+  s4:string;
+  s5:string;
+  f1:string;
+  f2:string;
 
   constructor() {
     
@@ -56,6 +63,13 @@ export class AppComponent implements OnInit {
     ];
     this.maxBlockInCache = 5;
     this.imageLink1 = environment.img.infiniteScrolling;
+    this.s1 = environment.img.sorting.s1;
+    this.s2 = environment.img.sorting.s2;
+    this.s3 = environment.img.sorting.s3;
+    this.s4 = environment.img.sorting.s4;
+    this.s5 = environment.img.sorting.s5;
+    this.f1 = environment.img.filtering.f1;
+    this.f2 = environment.img.filtering.f2;
 
   }
 
