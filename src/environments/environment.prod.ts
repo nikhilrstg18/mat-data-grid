@@ -7,5 +7,8 @@ export const environment = {
     projectId: "nikhilrustagi-181092",
     storageBucket: "nikhilrustagi-181092.appspot.com",
     messagingSenderId: "441495767932"
+  },
+  img:{
+    infiniteScrolling: 'https://nikhilrstg18.github.io/mat-data-grid/assets/img/infinitescroll.PNG',
   }
 };

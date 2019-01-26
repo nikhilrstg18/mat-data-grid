@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GridData } from './modals/grid-data';
 import { MatDataGridColDef } from './modals/mat-data-grid-col-def';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   colDefs: MatDataGridColDef[];
   maxBlockInCache: number;
   gridDataArray: GridData[];
+  imageLink1 :string;
 
   constructor() {
     
@@ -53,6 +55,7 @@ export class AppComponent implements OnInit {
       
     ];
     this.maxBlockInCache = 5;
+    this.imageLink1 = environment.img.infiniteScrolling;
 
   }
 

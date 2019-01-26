@@ -13,8 +13,15 @@
           Service Side Infinite Scrolling
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <h4>Something cool is coming here...</h4>
-      <p> Understanding Service Side Infinite Scrolling </p>
+      <h4>How it Works</h4>
+      <p> The grid will ask your application, via a datasource, for the rows in blocks. 
+        Each block contains a subset of rows of the entire data set. 
+        The following diagram is a high level overview. </p>
+        <img [src]="imageLink1" alt="server-side-infinite-scrolling">
+
+      <p> When the grid scrolls to a position where there is no corresponding block of rows loaded,
+        the model uses the provided datasource to get the rows for the requested block.
+        In the diagram, the datasource is getting the rows from a database in a remote server. </p>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
