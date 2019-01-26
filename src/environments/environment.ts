@@ -24,7 +24,8 @@ export const environment = {
     filtering:{
       f1:'https://nikhilrstg18.github.io/mat-data-grid/assets/img/f1.png',
       f2:'https://nikhilrstg18.github.io/mat-data-grid/assets/img/f2.png',
-    }
+    },
+    show:'https://nikhilrstg18.github.io/mat-data-grid/assets/img/show.png'
   }
 };
 

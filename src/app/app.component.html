@@ -22,6 +22,10 @@
       <p> When the grid scrolls to a position where there is no corresponding block of rows loaded,
         the model uses the provided datasource to get the rows for the requested block.
         In the diagram, the datasource is getting the rows from a database in a remote server. </p>
+
+      <h4>Configurable page size</h4>
+      <p> The grid will fetch # of records as per selection for show-list</p>
+        <img class="desc-image" [src]="imageLink1" alt="server-side-infinite-scrolling">
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -64,10 +68,11 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <h3>Block Cache</h3>
-      <p> The grid keeps the blocks in a cache. You have the choice to never expire the blocks,
-        or to set a limit to the number of blocks kept. If you set a limit, then as you scroll down,
-        previous blocks will be discarded and will be loaded again if the user scrolls back up. 
+      <p> The grid keeps the blocks in a cache. You can set a limit to the number of blocks kept. 
+        If you set a limit, then as you scroll down, previous blocks will be discarded and will be loaded again if the user scrolls back up. 
         The maximum blocks to keep in the cache is set using the <strong>maxBlocksInCache</strong> property.</p>
+        <p>This feature comes in handy when you are dealing with huge amount of data and do not want your browser to become slow after multiple page srolling
+      </p>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

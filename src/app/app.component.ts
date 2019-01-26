@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { GridData } from './modals/grid-data';
 import { MatDataGridColDef } from './modals/mat-data-grid-col-def';
-import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -18,17 +18,18 @@ export class AppComponent implements OnInit {
   colDefs: MatDataGridColDef[];
   maxBlockInCache: number;
   gridDataArray: GridData[];
-  imageLink1 :string;
-  s1:string;
-  s2:string;
-  s3:string;
-  s4:string;
-  s5:string;
-  f1:string;
-  f2:string;
+  imageLink1: string;
+  s1: string;
+  s2: string;
+  s3: string;
+  s4: string;
+  s5: string;
+  f1: string;
+  f2: string;
+  show: string;
 
   constructor() {
-    
+
   }
   ngOnInit(): void {
     this.baseUrl = `https://localhost:44378`;
@@ -59,7 +60,7 @@ export class AppComponent implements OnInit {
       new MatDataGridColDef('studentDepartment', 'Department', (element: any) => `${element.studentDepartment != null ? element.studentDepartment : ''}`, '16.67rem', false),
       new MatDataGridColDef('studentScore', 'Score', (element: any) => `${element.studentScore != null ? element.studentScore : ''}`, '16.67rem', true),
       new MatDataGridColDef('isMerit', 'Merit', (element: any) => `${element.isMerit != null ? element.isMerit : ''}`, '16.67rem', false),
-      
+
     ];
     this.maxBlockInCache = 5;
     this.imageLink1 = environment.img.infiniteScrolling;
@@ -70,6 +71,7 @@ export class AppComponent implements OnInit {
     this.s5 = environment.img.sorting.s5;
     this.f1 = environment.img.filtering.f1;
     this.f2 = environment.img.filtering.f2;
+    this.show = environment.img.show;
 
   }
 
